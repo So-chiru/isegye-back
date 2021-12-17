@@ -8,6 +8,7 @@ export interface RankSongData {
   rank: number
   title: string
   artist: string
+  cname?: string
 }
 
 export interface ChartData {

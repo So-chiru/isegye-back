@@ -1,21 +1,27 @@
 import * as melon from './api/melon'
 import * as bugs from './api/bugs'
-import { filterBugsIsedolId, filterMelonIsedolId, getTimestamp } from './utils'
+import * as flo from './api/flo'
+import * as apple from './api/applemusic'
+import { filterAppleIsedolId, filterBugsIsedolId, filterMelonIsedolId, getTimestamp } from './utils'
 
 import * as db from './db'
 import { ChartData } from './types/rank'
 
 const buildTopDatabase = async () => {
-  const M_realtime = await melon.top100Realtime()
-  const M_filteredRealtime = filterMelonIsedolId(M_realtime)
+  const m_realtime = await melon.top100Realtime()
+  const M_filteredRealtime = filterMelonIsedolId(m_realtime)
 
   const B_realtime = await bugs.top100Realtime()
   const B_filteredRealtime = filterBugsIsedolId(B_realtime)
+
+  const A_realtime = await apple.top100Realtime()
+  const A_filteredRealtime = filterAppleIsedolId(B_realtime)
 
   const current: ChartData = {
     providers: {
       melon: M_filteredRealtime,
       bugs: B_filteredRealtime,
+      applemusic: A_filteredRealtime,
     },
     date: getTimestamp(),
   }
@@ -33,16 +39,24 @@ const buildTopDatabase = async () => {
 }
 
 const buildHourlyTopDatabase = async () => {
-  const m_daily = await melon.top100Daily()
+  const m_daily = await melon.top10024H()
   const M_filteredDaily = filterMelonIsedolId(m_daily)
 
   const b_daily = await bugs.top100Daily()
   const B_filteredDaily = filterBugsIsedolId(b_daily)
 
+  const F_daily = await flo.top100Daily()
+  const F_filteredDaily = filterBugsIsedolId(F_daily)
+
+  const A_daily = await apple.top100Daily()
+  const A_filteredDaily = filterBugsIsedolId(A_daily)
+
   const hourly = {
     providers: {
       melon: M_filteredDaily,
       bugs: B_filteredDaily,
+      flo: F_filteredDaily,
+      applemusic: A_filteredDaily
     },
     date: getTimestamp(),
   }
