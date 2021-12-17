@@ -15,7 +15,7 @@ const buildTopDatabase = async () => {
   const B_filteredRealtime = filterBugsIsedolId(B_realtime)
 
   const A_realtime = await apple.top100Realtime()
-  const A_filteredRealtime = filterAppleIsedolId(B_realtime)
+  const A_filteredRealtime = filterAppleIsedolId(A_realtime)
 
   const current: ChartData = {
     providers: {

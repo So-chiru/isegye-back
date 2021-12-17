@@ -13,7 +13,7 @@ const externalParseChart = ($: CheerioAPI) => {
    const ta = $(e).find('td.text').text().trim().split(' - ')
 
     const title = ta[1]
-    const artist = ta[2]
+    const artist = ta[0]
 
     result.push({
       id,
